@@ -1,4 +1,4 @@
-= sapphire
+= Smalltalkable
 
 * Smalltalkable (http://github.com/technohippy/smalltalkable)
 
