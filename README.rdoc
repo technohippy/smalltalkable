@@ -8,7 +8,7 @@ Smalltalkable is a library to write your ruby code in smalltalkish way.
 
 == INSTALL:
 
-* sudo gem install sapphire
+* sudo gem install smalltalkable
 
 == EXAMPLE:
 
