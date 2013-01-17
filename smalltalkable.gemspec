@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Smalltalkable::VERSION
   s.authors     = ["Ando Yasushi"]
   s.email       = ["andyjpn@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/technohippy/smalltalkable"
   s.summary     = %q{Write your ruby code in smalltalkish way}
-  s.description = %q{Write your ruby code in smalltalkish way}
+  s.description = %q{Smalltalkable is a library to write your ruby code in smalltalkish way.}
 
   s.rubyforge_project = "smalltalkable"
 
@@ -17,8 +17,4 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
 end
