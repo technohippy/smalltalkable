@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-Smalltalkable is a library to write your ruby code in smalltalkish way.
+Smalltalkable allows you to write ruby code in smalltalkish way.
 
 == INSTALL:
 
@@ -12,7 +12,9 @@ Smalltalkable is a library to write your ruby code in smalltalkish way.
 
 == EXAMPLE:
 
-=== Code:
+=== Define and Use a Class
+
+==== Code:
 
   require 'smalltalkable'
 
@@ -44,7 +46,7 @@ Smalltalkable is a library to write your ruby code in smalltalkish way.
     counter.next
   }
 
-=== Result:
+==== Result:
 
   $ ruby -I lib/ sample.rb
   0
@@ -52,11 +54,28 @@ Smalltalkable is a library to write your ruby code in smalltalkish way.
   12
   18
 
+=== Smalltalkize Method
+
+To define smalltalkish methods in rubyish way, use smalltalkize method:
+
+  class Counter
+    def method(arg1, arg2)
+      do_something
+    end
+    smalltalkize :method, :arg2
+    # Usage: Counter.new.method 'arg1', arg2:'arg2'
+  end
+
+This can be used to smalltalkize an existing method:
+
+  String.smalltalkize :center => [:centerWidth, :padding]
+  # Usage: 'foo'.centerWidth 10, padding:'*'
+
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2012 ANDO Yasushi
+Copyright (c) 2013 ANDO Yasushi
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -53,6 +53,67 @@ class Class
   end
 end
 
+class Object
+  class <<self
+    def smalltalkize(method_name, *args)
+      added_method_name = method_name
+      if method_name.is_a? Hash
+        args = method_name.values.first
+        added_method_name = args.shift
+        method_name = method_name.keys.first
+      end
+
+      method = self.instance_method method_name
+      return if [0, 1].include? method.arity
+
+      old_method_name = "#{method_name}__old"
+      new_method_name = "#{method_name}__new"
+      self.instance_eval do
+        alias_method old_method_name, method_name
+      end
+      self.class_eval <<-EOS
+        def #{new_method_name}(arg, opts={})
+          args = [arg]
+          #{args.map{|arg| "args.push opts[:#{arg}]"}.join("\n")}
+          #{old_method_name}(*args)
+        end
+      EOS
+      self.instance_eval do
+        alias_method added_method_name, new_method_name
+      end
+    end
+    alias smalltalkise smalltalkize
+  end
+
+  def eigenclass 
+    class << self
+      self
+    end 
+  end 
+
+  def if_nil(true_proc, opts={})
+    (opts[:if_not_nil] || opts[:ifNotNil] || ->{nil}).call
+  end
+  alias ifNil if_nil
+
+  def if_not_nil(true_proc, opts={})
+    true_proc.call
+  end
+  alias ifNotNil if_not_nil
+end
+
+class NilClass
+  def if_nil(true_proc, opts={})
+    true_proc.call
+  end
+  alias ifNil if_nil
+
+  def if_not_nil(true_proc, opts={})
+    (opts[:if_nil] || opts[:ifNil] || ->{nil}).call
+  end
+  alias ifNotNil if_not_nil
+end
+
 class TrueClass
   def if_true(true_proc, opts={})
     true_proc.call
@@ -75,30 +136,6 @@ class FalseClass
     false_proc.call
   end
   alias ifFalse if_false
-end
-
-class NilClass
-  def if_nil(true_proc, opts={})
-    true_proc.call
-  end
-  alias ifNil if_nil
-
-  def if_not_nil(true_proc, opts={})
-    (opts[:if_nil] || opts[:ifNil] || ->{nil}).call
-  end
-  alias ifNotNil if_not_nil
-end
-
-class Object
-  def if_nil(true_proc, opts={})
-    (opts[:if_not_nil] || opts[:ifNotNil] || ->{nil}).call
-  end
-  alias ifNil if_nil
-
-  def if_not_nil(true_proc, opts={})
-    true_proc.call
-  end
-  alias ifNotNil if_not_nil
 end
 
 class Proc
