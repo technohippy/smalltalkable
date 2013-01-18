@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-Smalltalkable is a library to allow you to write ruby code in smalltalkish way.
+Smalltalkable allows you to write ruby code in smalltalkish way.
 
 == INSTALL:
 
