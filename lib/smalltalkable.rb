@@ -85,12 +85,6 @@ class Object
     alias smalltalkise smalltalkize
   end
 
-  def eigenclass 
-    class << self
-      self
-    end 
-  end 
-
   def if_nil(true_proc, opts={})
     (opts[:if_not_nil] || opts[:ifNotNil] || ->{nil}).call
   end

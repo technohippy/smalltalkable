@@ -83,7 +83,7 @@ class TestSmalltalkable < Test::Unit::TestCase
     String.smalltalkize :rjust => [:rjustWidth, :padding]
     assert_equal '*******foo', 'foo'.rjustWidth(10, padding:'*')
 
-    Time.eigenclass.smalltalkize :gm, :month, :day, :hour, :minute, :second
+    Time.singleton_class.smalltalkize :gm, :month, :day, :hour, :minute, :second
     time = Time.gm 2013, month:1, day:2, hour:3, minute:4, second:5
     assert_equal 2013, time.year
     assert_equal 1, time.month
@@ -92,7 +92,7 @@ class TestSmalltalkable < Test::Unit::TestCase
     assert_equal 4, time.min
     assert_equal 5, time.sec
 
-    Time.eigenclass.smalltalkize :local => [:local_year, :month, :day, :hour, :minute, :second]
+    Time.singleton_class.smalltalkize :local => [:local_year, :month, :day, :hour, :minute, :second]
     local_time = Time.local_year 2013, month:1, day:2, hour:3, minute:4, second:5
     assert_equal 2013, local_time.year
     assert_equal 1, local_time.month
