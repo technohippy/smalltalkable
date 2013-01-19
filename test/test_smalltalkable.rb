@@ -41,10 +41,16 @@ class TestSmalltalkable < Test::Unit::TestCase
   end
 
   def test_define_class_method
-    Counter.class.compile '
+    Counter.singleton_class.compile '
       classMethod
         "classMethod"'
+    assert_raise NoMethodError do String.classMethod end
     assert_equal 'classMethod', Counter.classMethod
+
+    Counter.class_compile '
+      classMethod2
+        "classMethod2"'
+    assert_equal 'classMethod2', Counter.classMethod2
   end
 
   def test_smalltalkize
@@ -83,7 +89,7 @@ class TestSmalltalkable < Test::Unit::TestCase
     String.smalltalkize :rjust => [:rjustWidth, :padding]
     assert_equal '*******foo', 'foo'.rjustWidth(10, padding:'*')
 
-    Time.singleton_class.smalltalkize :gm, :month, :day, :hour, :minute, :second
+    Time.class_smalltalkize :gm, :month, :day, :hour, :minute, :second
     time = Time.gm 2013, month:1, day:2, hour:3, minute:4, second:5
     assert_equal 2013, time.year
     assert_equal 1, time.month
@@ -92,7 +98,7 @@ class TestSmalltalkable < Test::Unit::TestCase
     assert_equal 4, time.min
     assert_equal 5, time.sec
 
-    Time.singleton_class.smalltalkize :local => [:local_year, :month, :day, :hour, :minute, :second]
+    Time.class_smalltalkize :local => [:local_year, :month, :day, :hour, :minute, :second]
     local_time = Time.local_year 2013, month:1, day:2, hour:3, minute:4, second:5
     assert_equal 2013, local_time.year
     assert_equal 1, local_time.month

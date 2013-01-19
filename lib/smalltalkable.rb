@@ -51,6 +51,10 @@ class Class
       end
     EOS
   end
+
+  def class_compile(code)
+    self.singleton_class.compile code
+  end
 end
 
 class Object
@@ -83,6 +87,10 @@ class Object
       end
     end
     alias smalltalkise smalltalkize
+
+    def class_smalltalkize(method_name, *args)
+      self.singleton_class.smalltalkize method_name, *args
+    end
   end
 
   def if_nil(true_proc, opts={})
