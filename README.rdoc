@@ -18,12 +18,14 @@ Smalltalkable allows you to write ruby code in smalltalkish way.
 
   require 'smalltalkable'
 
+  # define class
   Object.subclass :Counter,
     instanceVariableNames: 'value step',
     classVariableNames: 'instanceCount',
     poolDictionaries: '',
     category: 'Category-Name'
 
+  # define methods
   Counter.compile '
     initialize value, step:step
       @value = value
@@ -38,6 +40,7 @@ Smalltalkable allows you to write ruby code in smalltalkish way.
     setValue newValue
       @value = newValue'
 
+  # use defined class
   counter = Counter.new 0, step:2
   ->{counter.value < 20}.while_true ->{
     (counter.value % 3 == 0).if_true ->{
@@ -63,8 +66,8 @@ To define smalltalkish methods in rubyish way, use smalltalkize method:
       do_something
     end
     smalltalkize :method, :arg2
-    # Usage: Counter.new.method 'arg1', arg2:'arg2'
   end
+  # Usage: Counter.new.method 'arg1', arg2:'arg2'
 
 This can be used to smalltalkize an existing method:
 
