@@ -41,16 +41,11 @@ class TestSmalltalkable < Test::Unit::TestCase
   end
 
   def test_define_class_method
-    Counter.singleton_class.compile '
+    Counter.class_compile '
       classMethod
         "classMethod"'
     assert_raise NoMethodError do String.classMethod end
     assert_equal 'classMethod', Counter.classMethod
-
-    Counter.class_compile '
-      classMethod2
-        "classMethod2"'
-    assert_equal 'classMethod2', Counter.classMethod2
   end
 
   def test_smalltalkize
